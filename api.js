@@ -7,6 +7,17 @@ const BASE_URL = 'https://api.example.com/v1/'
 const CURRENCY_API_AUTH_TOKEN = '6a9a96cf53cf0f3aadfa2c65c37026e6';
 
 export class StatsApi {
+
+  fetchCurrencyRates() {
+    return rp({
+      method: 'GET',
+      url: 'https://api.currencyrates.com/rates?base_currency=eur',
+      headers: {
+        'Authorization': 'Bearer ' + CURRENCY_API_AUTH_TOKEN
+      }
+    });
+  }
+
   getInsights(params) {
     params['timeframe'] = timeframe;
     return rp({
@@ -49,16 +60,6 @@ export class StatsApi {
         'X-API-version': '2.3'
       },
       json: params
-    });
-  }
-
-  fetchCurrencyRates() {
-    return rp({
-      method: 'GET',
-      url: 'https://api.currencyrates.com/rates?base_currency=eur',
-      headers: {
-        'Authorization': 'Bearer ' + CURRENCY_API_AUTH_TOKEN
-      }
     });
   }
 }
