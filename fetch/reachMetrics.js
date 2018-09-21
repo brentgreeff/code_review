@@ -9,7 +9,10 @@ const reachMetrics = (options) => {
   return new Promise(
     (resolve, reject) => {
       setTimeout(
-        () => resolve({reach: 'Metrics'})
+        () => resolve([
+          options,
+          {reach: 'Metrics'}
+        ])
       , 500)
     }
   );

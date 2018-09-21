@@ -9,21 +9,43 @@ import { setAccount } from './account'
 const account_id = 1;
 setAccount(account_id)
 
-whenCurrencyRates({})
-  // .then( response => response.json )
-  .then( json => console.log(json) )
-  .catch( error => console.log(error) );
+const upsertStats = (timeframe, stat) => {
+  const date = new Date().toISOString();
+  console.log(stat);
+}
 
-whenInsightMetrics({ id: account_id, metrics: ['views', 'spend'] })
-  .then( metrics => console.log(metrics) )
-  .catch( error => console.log(error) );
+const saveStats = (metrics) => {
+  const rates = metrics.shift();
 
-whenReachMetrics({
-  id: account_id, metrics: ['audienceOverlap', 'uniqueReach']
-}).then( metrics => console.log(metrics) )
-  .catch( error => console.log(error) );
+  console.log(metrics);
+  console.log("\n");
 
-whenConversionMetrics({
-  id: account_id, metrics: ['purchases', 'revenue']
-}).then( metrics => console.log(metrics) )
+  metrics.map(
+    (m) => m[0].metrics.map( metric => [metric, m[1][metric]] )
+  ).map((pair) => {
+    const metric = pair[0];
+    const stats = pair[1];
+
+    if ('spend' === metric) {
+      return stats.map(s => ({ [metric]: s * rates.usd }));
+    }
+    return stats.map(s => ({ [metric]: s}));
+  }).forEach(stat => {
+    if (stat == null) {
+      return;
+    }
+    upsertStats('last_30_days', stat);
+  })
+}
+
+Promise.all([
+  whenCurrencyRates({}),
+  whenInsightMetrics({ id: account_id, metrics: ['views', 'spend'] }),
+  whenReachMetrics({
+    id: account_id, metrics: ['audienceOverlap', 'uniqueReach']
+  }),
+  whenConversionMetrics({
+    id: account_id, metrics: ['purchases', 'revenue']
+  })
+]).then( metrics => saveStats(metrics) )
   .catch( error => console.log(error) );

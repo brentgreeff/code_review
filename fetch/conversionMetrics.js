@@ -9,7 +9,10 @@ const conversionMetrics = (options) => {
   return new Promise(
     (resolve, reject) => {
       setTimeout(
-        () => resolve({conversion: 'Metrics'})
+        () => resolve([
+          options,
+          {conversion: 'Metrics'}
+        ])
       , 500)
     }
   );

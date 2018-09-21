@@ -9,7 +9,10 @@ const insightMetrics = (options) => {
   return new Promise(
     (resolve, reject) => {
       setTimeout(
-        () => resolve({insight: 'Metrics'})
+        () => resolve([
+          options,
+          {insight: 'Metrics'}
+        ])
       , 500)
     }
   );
