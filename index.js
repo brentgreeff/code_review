@@ -11,14 +11,17 @@ setAccount(account_id)
 
 const upsertStats = (timeframe, stat) => {
   const date = new Date().toISOString();
-  console.log(stat);
+  // console.log(stat);
 }
 
 const saveStats = (metrics) => {
   const rates = metrics.shift();
 
-  console.log(metrics);
-  console.log("\n");
+  metrics.map(
+    (m) => console.log(m)
+  )
+
+  return null;
 
   metrics.map(
     (m) => m[0].metrics.map( metric => [metric, m[1][metric]] )

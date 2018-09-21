@@ -23,7 +23,7 @@ const conversionMetrics = (options) => {
       'Content-Type': 'application/json',
       'X-API-version': '2.3'
     },
-    json: options
+    body: JSON.stringify(options)
   });
 };
 
