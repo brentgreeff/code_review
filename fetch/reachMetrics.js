@@ -11,7 +11,10 @@ const reachMetrics = (options) => {
       setTimeout(
         () => resolve([
           options,
-          {reach: 'Metrics'}
+          {
+            'audienceOverlap': 'Reach audienceOverlap',
+            'uniqueReach': 'Reach uniqueReach'
+          }
         ])
       , 500)
     }

@@ -11,7 +11,10 @@ const insightMetrics = (options) => {
       setTimeout(
         () => resolve([
           options,
-          {insight: 'Metrics'}
+          {
+            'views': 'Insight Views',
+            'spend': 'Insight spend'
+          }
         ])
       , 500)
     }

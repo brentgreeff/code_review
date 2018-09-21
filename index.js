@@ -17,15 +17,19 @@ const upsertStats = (timeframe, stat) => {
 const saveStats = (metrics) => {
   const rates = metrics.shift();
 
-  metrics.map(
-    (m) => console.log(m)
+  const reMapped = metrics.map(
+    (m) => m[0].metrics.map( metric => [metric, m[1][metric]] )
+  )
+
+  reMapped.map(
+    (m) => {
+      console.log(m)
+    }
   )
 
   return null;
 
-  metrics.map(
-    (m) => m[0].metrics.map( metric => [metric, m[1][metric]] )
-  ).map((pair) => {
+  reMapped.map((pair) => {
     const metric = pair[0];
     const stats = pair[1];
 

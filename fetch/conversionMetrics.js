@@ -11,7 +11,10 @@ const conversionMetrics = (options) => {
       setTimeout(
         () => resolve([
           options,
-          {conversion: 'Metrics'}
+          {
+            'purchases': 'Conversion purchases',
+            'revenue': 'Conversion revenue'
+          }
         ])
       , 500)
     }
